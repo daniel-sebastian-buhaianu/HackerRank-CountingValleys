@@ -10,33 +10,34 @@ import java.util.stream.*;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
-class Result {
-
-    /*
-     * Complete the 'countingValleys' function below.
-     *
-     * The function is expected to return an INTEGER.
-     * The function accepts following parameters:
-     *  1. INTEGER steps
-     *  2. STRING path
-     */
-
-    public static int countingValleys(int steps, String path) {
-        int altitude = 0;
-        int numberOfValleys = 0;
-        boolean valley = false;
-        for (int i = 0; i < steps; i++) {
-            altitude = path.charAt(i) == 'D' ? altitude-1 : altitude+1;
-            if (altitude < 0 && !valley) {
-                numberOfValleys++;
-                valley = true;
-            } else if (altitude == 0 && valley) {
-                valley = false;
+class Result
+{
+    public static int countingValleys(int steps, String path)
+    {
+        int valleyCount = 0;
+        int level = 0;
+        
+        for (int i = 0; i < steps; i++)
+        {
+            char step = path.charAt(i);
+            
+            if (step == 'U')
+            {
+                level++;
+                
+                if (level == 0)
+                {
+                    valleyCount++;
+                }
+            }
+            else if (step == 'D')
+            {
+                level--;
             }
         }
-        return numberOfValleys;
+        
+        return valleyCount;
     }
-
 }
 
 public class Solution {
